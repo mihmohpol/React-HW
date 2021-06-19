@@ -1,0 +1,65 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  width: 100%;
+  margin-top: 50px;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.task__wrapper {
+  margin: 20px 0;
+  width: 400px;
+  min-height: 70px;
+  border-radius: 5px;
+  /* #ffc8c4 */
+  background: #ffffd7;
+  padding: 10px 20px;
+  box-shadow: 0 0 8px 4px #eee;
+}
+
+.task__title {
+  font-weight: bold;
+  font-size: 20px;
+  word-wrap: break-word;
+}
+
+.task__description {
+  margin-top: 5px;
+  font-size: 14px;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.task__bottom {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task__status {
+  font-weight: bold;
+}
+
+.completed-button {
+  padding: 5px 10px;
+  background: #a8b8fe;
+  border-radius: 5px;
+  transition: .2s all;
+}
+
+.completed-button:hover {
+  background: #8f9cd2;
+  cursor: pointer;
+  transition: .2s all;
+}
