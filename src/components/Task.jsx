@@ -1,31 +1,45 @@
-import React from 'react';
-import '../App.css';
-const Task = (props) => {
+import React, {useContext} from 'react';
+import styles from '../styles/Task.module.scss';
+import { ThemeContext } from '../context';
+
+import classNames from 'classnames';
+
+const Task = (props) => { 
+  let {theme} = useContext(ThemeContext)
 
   const handleClick = () => {
     props.changeCompleted(props.id)
   }
 
+  let obj = {
+  }
+  obj[styles.task__wrapper] = true
+  obj['task-dark'] = theme === "dark";
+
+  let wrapperStyle = classNames(obj)
+
   return (
-    <div className="task__wrapper">
-      <div className="task__title">
+    <>
+    <div className={wrapperStyle}>
+      <div className={styles.task__title}>
         {props.name}
       </div>
-      <div className="task__description">
+      <div className={styles.task__description}>
         {props.description}
       </div>
-      <div className="task__bottom">
-        <div className="task__status">
+      <div className={styles.task__bottom}>
+        <div className={styles.task__status}>
           {props.completed && <div style={{color: '#4fbd00'}}>COMPLETED</div> }
 
           {!props.completed && <div style={{color: '#bd0000'}}>NOT COMPLETED</div>}
         </div>
-        <div className="completed-button" onClick={handleClick}>
-          {props.completed ? "Accept" : "Cancel"}
+        <div className={styles.completedButton} onClick={handleClick}>
+          {!props.completed ? "Accept" : "Cancel"}
         </div>
       </div>
     </div>
+    </>
   )
 }
 
-export default Task;
+export default Task; 

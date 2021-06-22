@@ -1,0 +1,28 @@
+.adding__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input_name, .input_desc {
+  margin: 5px 0;
+  width: 100%;
+  padding: 5px 10px;
+  resize: none;
+  outline: none;
+}
+
+.buttonAdd {
+  margin-top: 10px;
+  background: #ffb550;
+  padding: 5px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: .2s all;
+  &:hover {
+    cursor: pointer;
+    transition: .2s all;
+    background: #d59743;
+  }
+}
