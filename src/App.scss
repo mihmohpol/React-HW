@@ -1,0 +1,71 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  width: 100%;
+  padding-top: 50px;
+  min-height: calc(100vh);
+  display: flex;
+  transition: .2s all;
+  justify-content: center;
+
+  &-dark {
+    background: #2c2c2c;
+  }
+}
+
+.themeSwicher-light {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  padding: 5px 10px;
+  border: 1px solid black;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.themeSwicher-dark {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  color: #FFF;
+  padding: 5px 10px;
+  border: 1px solid #FFF;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.back-light {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  padding: 5px 10px;
+  border: 1px solid black;
+  text-decoration: none;
+  color: black;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.back-dark {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  color: #FFF;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #FFF;
+  border: 1px solid #FFF;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.task-dark {
+  box-shadow: none !important;
+}
