@@ -3,7 +3,7 @@ import '../App.css';
 const Task = (props) => {
 
   const handleClick = () => {
-    console.log(`Task ${props.id} completed status = ${props.completed}`)
+    props.changeCompleted(props.id)
   }
 
   return (

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Task from './Task';
+import TaskAdd from './TaskAdd';
 
 class MyTodoList extends React.Component {
   state = {
@@ -50,10 +51,22 @@ class MyTodoList extends React.Component {
        
     ]
   }
+  changeCompleted = function (id) {
+    console.log(id, ' ',this.state.tasks)
+    this.setState({tasks: this.state.tasks.map(task => task.id === id ? {...task, completed: !task.completed} : task)})
+    
+  }
+  addTask = function (task) {
+    console.log(task, this.state.tasks)
+    if (task.name !== "") {
+      this.setState({tasks: [{...task, id: Date.now()}, ...this.state.tasks]})
+    }
+  }
   render() {
     return (
       <div>
-        {this.state.tasks.map((task, key) => <Task key={key} {...task}/>)}
+        <TaskAdd addTask={this.addTask.bind(this)}/>
+        {this.state.tasks.map((task, key) => <Task key={key} {...task} changeCompleted={this.changeCompleted.bind(this)}/>)}
       </div>
     )
   }
