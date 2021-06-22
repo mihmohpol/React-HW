@@ -2,74 +2,76 @@ import React from 'react';
 
 import Task from './Task';
 import TaskAdd from './TaskAdd';
+import { Redirect } from 'react-router';
+import { NavLink } from 'react-router-dom';
+import { ThemeContext } from '../context';
+
+import { connect } from 'react-redux';
+import {AddTask, ChangeCompleted, setTasks} from '../redux/actions';
+
+import ApiService from '../API/ApiService'
 
 class MyTodoList extends React.Component {
+
   state = {
-    tasks: [
-      {
-        id: 1,
-        name: "Name of the task",
-        description: "What needs to be done",
-        completed: false,
-      },
-      {
-        id: 2,
-        name: "Clear room",
-        desription: "My room is bad",
-        completed: true,
-      },
-      {
-        id: 3,
-        name: "Learn React",
-        description: "Nice lib",
-        completed: true,
-      },
-      {
-        id: 4,
-        name: "Get 5 marks",
-        description: "it's neccecary",
-        completed: false,
-      },
-      {
-        id: 5,
-        name: "Learn NodeJS",
-        description: "Nice platform",
-        completed: false,
-      },
-      {
-        id: 6,
-        name: "Buy apple",
-        description: "For my mom",
-        completed: true,
-      },
-      {
-        id: 7,
-        name: "Go sleep",
-        description: "Don't know what's a poing",
-        completed: false,
-      },
-       
-    ]
+    isExist: true
   }
-  changeCompleted = function (id) {
-    console.log(id, ' ',this.state.tasks)
-    this.setState({tasks: this.state.tasks.map(task => task.id === id ? {...task, completed: !task.completed} : task)})
-    
+
+  changeCompleted = function (data) {
+    // console.log(id, ' ',this.props.tasksById[id].completed)
+    console.log(data)
+    ApiService.changeTask({
+      name: data.name,
+      description: data.description,
+      priority: data.priority,
+      completed: !data.completed,
+      id: data.id
+    },this.props.match.params.id).then(response => {
+      console.log(data.id)
+      this.props.ChangeCompleted(data.id)
+    })  
+    // this.props.ChangeCompleted(data)
   }
-  addTask = function (task) {
-    console.log(task, this.state.tasks)
-    if (task.name !== "") {
-      this.setState({tasks: [{...task, id: Date.now()}, ...this.state.tasks]})
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.project) {
+      ApiService.getTasksByProject(this.props.match.params.id).then(response => {
+        this.props.setTasks(this.props.match.params.id, response)
+      }).catch(error => {
+        this.setState({isExist: false})
+      })
     }
   }
+
+  componentDidMount() {
+    ApiService.getTasksByProject(this.props.match.params.id).then(response => {
+      this.props.setTasks(this.props.match.params.id, response)
+    }).catch(error => {
+      this.setState({isExist: false})
+    })
+  }
+
+  addTask = function (task) {
+    // this.props.AddTask(task.name, task.description, this.props.project)
+    ApiService.addTask(this.props.project.id, task.name, task.description).then(response => {
+      console.log(response)
+      this.props.AddTask(task.name, task.description, this.props.project, response.id)
+    })
+
+  }
   render() {
+    console.log(this.props.project)
+    if (!this.state.isExist) return <Redirect to='/projects'></Redirect>
+    if (!this.props.project) return <div>Loading</div>
     return (
-      <div>
+      <div style={{width: 400}}>
+        <NavLink className={`back-${this.props.theme}`} to='/projects'>Back from <span style={{fontWeight: 'bold'}}>{this.props.project.name}</span></NavLink>
         <TaskAdd addTask={this.addTask.bind(this)}/>
-        {this.state.tasks.map((task, key) => <Task key={key} {...task} changeCompleted={this.changeCompleted.bind(this)}/>)}
+        {this.props.project.tasksIds.sort((a, b) => b - a).map((id, key) => <Task key={key} {...this.props.tasksById[id]} changeCompleted={this.changeCompleted.bind(this)}/>)}
       </div>
     )
   }
 }
 
-export default MyTodoList
+
+export default connect(null, {AddTask, ChangeCompleted, setTasks})(MyTodoList);
