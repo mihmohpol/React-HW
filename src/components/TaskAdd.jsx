@@ -1,5 +1,5 @@
-import React, {useRef} from 'react';
-import '../App.css'
+import React, {useRef, useContext} from 'react';
+import styles from '../styles/TaskAdd.module.scss';
 
 const TaskAdd = (props) => {
   let nameRef = useRef();
@@ -12,10 +12,10 @@ const TaskAdd = (props) => {
   }
 
   return (
-    <div className="adding__container">
-      <input type="text" placeholder="name" ref={nameRef} className="input_name"/>
-      <textarea type="text" placeholder="description" ref={descRef} className="input_desc"/>
-      <div onClick={handleClick} className="button-add">
+    <div className={styles.adding__container}>
+      <input type="text" placeholder="name" ref={nameRef} className={styles.input_name}/>
+      <textarea type="text" placeholder="description" ref={descRef} className={styles.input_desc}/>
+      <div onClick={handleClick} className={styles.buttonAdd}>
         Add
       </div>
     </div>

@@ -1,0 +1,25 @@
+.wrapper {
+  background: #ffffd7;
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 10px;
+  font-weight: bold;
+  box-shadow: 0 0 8px 4px #eee;
+  cursor: pointer;
+  transition: .2s all;
+  color: black;
+  &:hover {
+    background: #faf0be;
+    transition: .2s all;
+  }
+}
+
+
+.wrapperDark {
+  box-shadow: none !important;
+}
